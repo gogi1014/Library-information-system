@@ -1,0 +1,40 @@
+
+
+<div class = "tb_list">
+    <a href="./details.php?id= <?= $id; ?>" >
+    <table >
+        <tr>
+            <td> Заглавие: </td> 
+            <td class = "tb_td"> <?=$IME ?></td>
+        </tr>
+        <tr>
+            <td> Автор: </td> 
+            <td class = "tb_td"> <?=$AUTHOR ?></td>
+        </tr>
+        <tr>
+            <td> Тип на продукта: </td> 
+            <td class = "tb_td"><?=$TYP;  ?></td>
+        </tr>
+        <tr>
+            <td> Година на издаване: </td>
+            <td class = "tb_td"> <?=$GOD;  ?></td>
+            </tr>
+        <tr>
+            <td>Издателство: </td>
+            <td class = "tb_td"><?=$IZD;  ?></td>
+        </tr>
+        <tr>
+            <td> Брой страници: </td>
+            <td class = "tb_td"> <?=$STR;  ?> </td>
+        </tr>
+        <tr>
+            <td> Жанр:</td>
+            <td class = "tb_td"> <?=$GENRE;  ?></td>
+        </tr>
+        <tr><td> Тагове:</td>
+        <td class = "tb_td"><?=$TAG;  ?></td>
+    </tr>
+    <img  src="<?= $url; ?>"> 
+    </table>
+</a>
+</div>
