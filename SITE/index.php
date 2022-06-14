@@ -11,6 +11,7 @@ session_start();
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="search.css">
 
@@ -26,24 +27,25 @@ session_start();
     include("reusesearch.php");
 ?>
 
+<?php if( isset($_GET['search']) && $_GET['search'] != "" ){ ?>
+<div id="type_view">
+      <form method="post">
+              <button input type="submit" name="button1" value="Button1" class="btn"><i class="fa fa-th"></i></button>
 
+              <button input type="submit" name="button2" value="Button2" class="btn"><i class="fa fa-bars"></i></button>
 
+          </form>
+      </div>
 
+<?php } ?>
 
 <div id="content"  >
 
 <?php if(isset($_COOKIE["username"])) { ?>
-      
-      
-      
-      <form method="post">
-              <input type="submit" name="button1" onclick="grid_view()"
-                      value="Button1"/>
-                
-              <input type="submit" name="button2" onclick="list_view()"
-                      value="Button2"/>
-          </form>
-      
+
+
+
+
 <?php 
 
 }
@@ -73,7 +75,7 @@ $offset = ($pageno-1) * $no_of_records_per_page;
       $stmt->bind_param("s", $search);
       $stmt->execute();
       $result = $stmt->get_result();
-      
+
 
       if(isset($_COOKIE["username"])) { 
         if (!isset($_SESSION['View'])) {
@@ -82,27 +84,27 @@ $offset = ($pageno-1) * $no_of_records_per_page;
         else {
           include ($_SESSION['View']);
         }
-          
-          
-       
-      
+
+
+
+
            if (isset($_POST['button1'])) {
                  $_SESSION['View'] = "index_grid.php"; 
-               
+
               }
               elseif (isset($_POST['button2']))
 
              {
                  $_SESSION['View'] = "index_table.php"; 
               }
-      
-     
+
+
     }
     else {
       include ("index_grid.php");
     }
   }
-    
+
 
 
 
@@ -111,15 +113,15 @@ $offset = ($pageno-1) * $no_of_records_per_page;
 
 if( isset($_GET['search']) && $_GET['search'] != "" ){
 
-    
-    
+
+
     if($_GET['search_type'] == "avtor") {
       search("AUTHOR", $con, $offset, $no_of_records_per_page);
       }
     if($_GET['search_type'] == "ime") {
       search("IME", $con, $offset, $no_of_records_per_page);
         }
-      
+
 }
 else{
   ?>
@@ -138,7 +140,7 @@ $sql="select * from knigi";
   $total_pages=ceil($total_records/$no_of_records_per_page);
   for($i=1;$i<=$total_pages;$i++){
     echo ($i==$pageno) ? 
-    
+
     '<nav aria-label="Page navigation example">
     <ul class="pagination">
     <strong><a class="page-link" href="?pageno='.$i.'&search='.$_GET['search'].'&search_type='.$_GET['search_type'].'">'.$i.'</a></strong> </ul>
@@ -149,7 +151,7 @@ $sql="select * from knigi";
     <a class="page-link" href="?pageno='.$i.'&search='.$_GET['search'].'&search_type='.$_GET['search_type'].'" >'.$i.'</a> </ul>
     </nav>';
 
-    
+
   }
 
 ?>
@@ -160,18 +162,15 @@ else{
   <script type="text/javascript">$('.pagg').hide()</script>
   <?php } ?>
 
-  
-  
+
+
 
 </div>
 
-<footer class="footer">
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    
-  </div>
-</footer>
-
+<?php
+    include("footer.php");
+?>
 
 
 </body>
-</html>
+</html> 
