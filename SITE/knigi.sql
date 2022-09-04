@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Време на генериране:  1 юни 2022 в 08:35
+-- Време на генериране: 20 юни 2022 в 20:09
 -- Версия на сървъра: 10.4.21-MariaDB
 -- Версия на PHP: 8.0.10
 
@@ -44,7 +44,8 @@ CREATE TABLE `item_rating` (
 --
 
 INSERT INTO `item_rating` (`ratingId`, `itemId`, `userId`, `ratingNumber`, `title`, `comments`, `created`, `modified`, `status`) VALUES
-(57, 5, 1, 1, 'gfd', 'dfg', '2022-05-28 15:10:36', '2022-05-28 15:10:36', 1);
+(88, 5, 1, 3, 'h', 't', '2022-06-09 17:06:18', '2022-06-09 17:06:18', 1),
+(89, 5, 1, 4, 't', 'w', '2022-06-14 11:00:29', '2022-06-14 11:00:29', 1);
 
 -- --------------------------------------------------------
 
@@ -79,6 +80,38 @@ INSERT INTO `knigi` (`id`, `IME`, `AUTHOR`, `TYP`, `GOD`, `IZD`, `STR`, `GENRE`,
 (4, 'Тя винаги се завръща', 'Джонатан Баркър', 'Романи ', 2021, 'Плеяда ', 288, 'Трилъри  Фентъзи ', '', 'https://cdn.ozone.bg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/y/7f7e01b3d60b261deef9fc7ded16a5c6/tya-vinagi-se-zavrashta-30.jpg', 0, 0, 0),
 (5, 'Проектът „Аве Мария“', 'Анди Уеър', 'Романи ', 2021, 'Бард ', 512, 'Научна фантастика ', '', 'https://knijarnicasefer.com/wp-content/uploads/2021/05/viber_image_2021-04-24_16-48-07.jpg', 0, 0, 0),
 (6, 'Невидимият човек', 'Хърбърт Уелс', 'Романи ', 2021, 'Паритет ', 232, 'Научна фантастика ', '', 'https://cdn.ozone.bg/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/n/e/cd8dea5f100fd79e260bb05b3407f1c9/nevidimiyat-chovek-30.jpg', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура на таблица `request_books`
+--
+
+CREATE TABLE `request_books` (
+  `id` int(11) NOT NULL,
+  `itemId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `typpe` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Схема на данните от таблица `request_books`
+--
+
+INSERT INTO `request_books` (`id`, `itemId`, `userId`, `typpe`, `created`) VALUES
+(1, 4, 1, 'Заявка за заемане', '2022-06-18 14:29:21'),
+(2, 4, 1, 'Заявка за заемане', '2022-06-18 14:29:23'),
+(3, 4, 1, 'Заявка за заемане', '2022-06-18 14:30:51'),
+(4, 4, 1, 'Заявка за печатане', '2022-06-18 14:30:52'),
+(5, 2, 1, 'Заявка за заемане', '2022-06-18 15:12:19'),
+(6, 5, 1, 'Заявка за сканиране', '2022-06-20 18:22:39'),
+(7, 5, 1, 'Заявка за сканиране', '2022-06-20 18:22:40'),
+(8, 5, 1, 'Заявка за сканиране', '2022-06-20 18:22:49'),
+(9, 5, 1, 'Заявка за сканиране', '2022-06-20 18:26:50'),
+(10, 5, 1, 'Заявка за сканиране', '2022-06-20 18:35:22'),
+(11, 5, 1, 'Заявка за сканиране', '2022-06-20 20:03:39'),
+(12, 5, 1, 'Заявка за сканиране', '2022-06-20 20:03:54');
 
 -- --------------------------------------------------------
 
@@ -121,6 +154,12 @@ ALTER TABLE `knigi`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индекси за таблица `request_books`
+--
+ALTER TABLE `request_books`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индекси за таблица `users`
 --
 ALTER TABLE `users`
@@ -134,13 +173,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `item_rating`
 --
 ALTER TABLE `item_rating`
-  MODIFY `ratingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `ratingId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `knigi`
 --
 ALTER TABLE `knigi`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `request_books`
+--
+ALTER TABLE `request_books`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`

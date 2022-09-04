@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!isset($_COOKIE["username"]))
+{
+    header("Location: login.php");
+    die();
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
@@ -29,12 +35,13 @@ session_start();
     <div class="form">
     <p><a href="view.php">Преглед на записите</a> 
     | <a href="insert.php">Добавяне на нов запис</a> 
-    | <a href="view_user.php">Преглед на потребителите</a></p>
+    | <a href="view_user.php">Преглед на потребителите</a>
+    |<a href="view_request.php">Преглед на заявките</a></p>
     <h2>Всички потребители</h2>
     <form class="user_search" action='view_user.php'  method="get" >
     <div class="input-group">
   <div class="form-outline">
-    <input type="search" id="search_view" name="search_view" class="form-control" placeholder="Търси потребител"/>
+    <input type="search" id="search_view" name="search_view" onkeyup="searchView()" class="form-control" placeholder="Търси потребител"/>
   </div>
   <button type="button" class="btn btn-primary">
     <i class="fas fa-search"></i>
@@ -43,11 +50,13 @@ session_start();
     </form>
 
     <div class="table-responsive">
-    <table class="table">
+    <table class="table" id = "myTable">
     <thead>
     <tr>
     <th class="text-center"><strong>S.No</strong></th>
     <th class="text-center"><strong>Потребителско име</strong></th>
+    <th class="text-center"><strong>Собствено име</strong></th>
+    <th class="text-center"><strong>Фамилно име</strong></th>
     <th class="text-center"><strong>Имейл</strong></th>
     <th class="text-center"><strong>Админ</strong></th>
     <th class="text-center"><strong>Edit</strong></th>
@@ -73,6 +82,8 @@ $tpl = new Template($path);
     while($row = mysqli_fetch_assoc($result)) { 
         $tpl->set('id', $row["id"]);
         $tpl->set('username', $row["username"]);
+        $tpl->set('first_name', $row["first_name"]);
+        $tpl->set('last_name', $row["last_name"]);
         $tpl->set('email', $row["email"]);
         $tpl->set('admin', $row["admin"]);
         $tpl->set('id2', $row["id"]);
@@ -118,3 +129,23 @@ $tpl = new Template($path);
 ?>
 </body>
 </html>   
+
+<script>
+function searchView() {
+  var input, filter, table, tr, td, cell, i, j;
+  filter = document.getElementById("search_view").value.toLowerCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    const tdArray = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < tdArray.length; j++) {
+      const cellValue = tdArray[j];
+      if (cellValue && cellValue.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        break;
+      }
+    }
+  }
+}
+</script>

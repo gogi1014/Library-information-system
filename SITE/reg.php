@@ -19,9 +19,11 @@ $nameErr = $userEx =  $emailErr = $passw = $passw2 = $prov = $al = $al1 ="";
 if (isset($_POST['username'], $_POST['password'], $_POST['email'], $_POST['password2'])){
 
 	$username = $_POST['username'];
-	$password = md5($_POST['password']);
+	$password = hash("sha256", $_POST['password']);
 	$email = $_POST['email'];
-  $password2 = md5($_POST['password2']);
+  $password2 = hash("sha256", $_POST['password2']);
+  $first_name = $_POST['first_name'];
+  $last_name = $_POST['last_name'];
 	
 
   if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -48,17 +50,14 @@ if (isset($_POST['username'], $_POST['password'], $_POST['email'], $_POST['passw
   }
 
   if ($stmt = $con->prepare('SELECT * FROM users WHERE username = ?')) {
-    // Bind parameters (s = string, i = int, b = blob, etc), hash the password using the PHP password_hash function.
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();
     $stmt->store_result();
-    // Store the result so we can check if the account exists in the database.
     if ($stmt->num_rows > 0) {
-      // Username already exists
-      $userEx = 'Username exists, please choose another!';
+      $userEx = 'Потребителското име съществува, изберете друго!';
     } else {
-      if(($stmt = $con->prepare("INSERT into users (username,password,email)VALUES(?,?,?)")) and ($prov == "success")){
-        $stmt->bind_param("sss", $username, $password, $email);
+      if(($stmt = $con->prepare("INSERT into users (username,first_name,last_name,password,email)VALUES(?,?,?,?,?)")) and ($prov == "success")){
+        $stmt->bind_param("sssss", $username,$first_name ,$last_name,$password, $email);
           $stmt->execute();
           $al = "Регистрацията успешна";
           $al1= "Натиснете тук за <a href='index.php'>Вписване"; 
@@ -98,6 +97,20 @@ $con->close();
     <input type="text" name="username" id="username" class="fadeIn second"  placeholder="Потребителско име">
     </div>
     <span class = "error"><?php echo $nameErr;echo $userEx;?></span>
+
+    <div class="input-group mb-3 ml-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+    <input type="text" name="first_name" id="first_name" class="fadeIn second"  placeholder="Собствено име">
+    </div>
+
+    <div class="input-group mb-3 ml-3">
+							<div class="input-group-append">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+    <input type="text" name="last_name" id="last_name" class="fadeIn second"  placeholder="Фамилия">
+    </div>
 
     <div class="input-group mb-3 ml-3">
 							<div class="input-group-append">

@@ -1,6 +1,12 @@
 <?php
 require('db.php');
 
+if (!isset($_COOKIE["username"]))
+{
+    header("Location: login.php");
+    die();
+}
+
 $status = "";
 if(isset($_POST['new']) && $_POST['new']==1){
     $id=$_REQUEST['id'];
@@ -12,6 +18,7 @@ if(isset($_POST['new']) && $_POST['new']==1){
     
     $status = "New Record Inserted Successfully.
     </br></br><a href='view.php'>View Inserted Record</a>";
+    header('Location: view_user.php');
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 

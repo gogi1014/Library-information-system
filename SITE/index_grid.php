@@ -46,6 +46,7 @@ $rows = $result->num_rows;    // Find total rows returned by database
                  <!--// Close the container -->
                 <?php
           } 
+          
 
 ?>
 

@@ -9,7 +9,6 @@ $path = './templates/';
 $tpl = new Template($path);
 
 
-    
    
     while($row = $result->fetch_assoc()){
         
@@ -29,4 +28,5 @@ $tpl = new Template($path);
         print $tpl->fetch('_index_table.html');
 
         
-       } ?>
+       }
+        ?>

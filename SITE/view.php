@@ -1,5 +1,11 @@
 <?php
 session_start();
+
+if (!isset($_COOKIE["username"]))
+{
+    header("Location: login.php");
+    die();
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
@@ -26,12 +32,13 @@ session_start();
     <div class="form">
     <p><a href="view.php">Преглед на записите</a> 
     | <a href="insert.php">Добавяне на нов запис</a> 
-    | <a href="view_user.php">Преглед на потребителите</a></p>
+    | <a href="view_user.php">Преглед на потребителите</a>
+    |<a href="view_request.php">Преглед на заявките</a></p>
     <h2>Всички Записи</h2>
 
     <div class="input-group">
   <div class="form-outline">
-    <input type="search" id="search_view" class="form-control" placeholder="Търси заглавие"/>
+    <input type="search" id="search_view" onkeyup="searchView()" class="form-control" placeholder="Търси заглавие"/>
   </div>
   <button type="button" class="btn btn-primary">
     <i class="fas fa-search"></i>
@@ -39,7 +46,7 @@ session_start();
     </div>
 
     <div class="table-responsive">
-    <table class="table">
+    <table class="table" id = "myTable">
     <thead>
     <tr>
     <th class="text-center"><strong>S.No</strong></th>
@@ -51,7 +58,6 @@ session_start();
     <th class="text-center"><strong>Страници</strong></th>
     <th class="text-center"><strong>Жанр</strong></th>
     <th class="text-center"><strong>Тагове</strong></th>
-    <th class="text-center"><strong>Корица</strong></th>
     <th class="text-center"><strong>Edit</strong></th>
     <th class="text-center"><strong>Delete</strong></th>
     </tr>
@@ -82,7 +88,6 @@ $tpl = new Template($path);
         $tpl->set('STR', $row["STR"]);
         $tpl->set('GENRE', $row["GENRE"]);
         $tpl->set('TAG', $row["TAG"]);
-        $tpl->set('url', $row["url"]);
         $tpl->set('id2', $row["id"]);
         $tpl->set('id3', $row["id"]);
         
@@ -104,3 +109,23 @@ $tpl = new Template($path);
 
 </body>
 </html>   
+
+<script>
+function searchView() {
+  var input, filter, table, tr, td, cell, i, j;
+  filter = document.getElementById("search_view").value.toLowerCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    const tdArray = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < tdArray.length; j++) {
+      const cellValue = tdArray[j];
+      if (cellValue && cellValue.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        break;
+      }
+    }
+  }
+}
+</script>

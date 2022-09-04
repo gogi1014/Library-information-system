@@ -17,7 +17,7 @@
     <ul class="dropdown-menu">
       <li onclick="back1()" ><a href="#">Светъл</a></li>
       <li onclick="back2()"><a href="#">Тъмен</a></li>
-      <li><a href="#">JavaScript</a></li>
+      <li onclick="back3()"><a href="#">Черен</a></li>
     </ul>
   </div>
      <?php
@@ -41,5 +41,13 @@ function back2() {
   document.body.style.backgroundSize = "cover";
   document.body.style.position = "center center";
 }
+function back3() {
+  document.body.style.background = "url('4tTqZS.jpg')";
+  localStorage.setItem("Background", "url('4tTqZS.jpg')");
+  document.body.style.backgroundRepeat = "no-repeat";
+  document.body.style.backgroundAttachment = "fixed";
+  document.body.style.backgroundSize = "cover";
+  document.body.style.position = "center center";
 
+}
 </script>
