@@ -49,7 +49,7 @@
       header("Location: index.php");
     } else {
       echo "
-    <META HTTP-EQUIV=REFRESH CONTENT='0; URL=index.php'>
+    <META HTTP-EQUIV=REFRESH CONTENT='0; URL=login.php'>
     <script type=\"text/javascript\">
     alert(\"Потребителското име и паролата не съвпадат.\");
     </script>";

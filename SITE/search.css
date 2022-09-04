@@ -690,3 +690,6 @@ footer{
 .dropdown:hover .dropbtn {background-color: #660808;}
 
 
+.error{
+ color:red;
+}

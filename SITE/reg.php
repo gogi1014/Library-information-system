@@ -62,8 +62,10 @@ if (isset($_POST['username'], $_POST['password'], $_POST['email'], $_POST['passw
           $al = "Регистрацията успешна";
           $al1= "Натиснете тук за <a href='index.php'>Вписване"; 
           echo "
-      <h3>Регистрацията успешна</h3>
-      <br/>Натиснете тук за <a href='index.php'>Вписване</a>";
+          <META HTTP-EQUIV=REFRESH CONTENT='0; URL=login.php'>
+          <script type=\"text/javascript\">
+          alert(\"Регистрацията е успешна.\");
+          </script>";
       } 
     }
     $stmt->close();
