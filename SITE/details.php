@@ -219,6 +219,7 @@ $reviewDate = date_format($date,"M d, Y");
 $result = mysqli_query($con, $ratinguery);
           while($row = $result->fetch_assoc()){
             $username = $row["username"];
+            $rateId = $row["ratingId"];
           }
 ?>
 <div class="row">
@@ -234,7 +235,7 @@ $result = mysqli_query($con, $ratinguery);
 <?php 
 if((isset($_SESSION["admin"]))){?>
     
-  <a href="delete_comment.php?ratingId=<?= $row["ratingId"]; ?>">Изтрий коментара</a>
+  <a href="delete_comment.php?ratingId=<?= $rateId; ?>">Изтрий коментара</a>
   <?php  } ?>
 </div>
 

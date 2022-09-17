@@ -41,7 +41,7 @@ if (!isset($_COOKIE["username"]))
     <form class="user_search" action='view_user.php'  method="get" >
     <div class="input-group">
   <div class="form-outline">
-    <input type="search" id="search_view" name="search_view" class="form-control" placeholder="Търси потребител"/>
+  <input type="search" id="search_view" onkeyup="searchView()" class="form-control" placeholder="Търси заявка"/>
   </div>
   <button type="button" class="btn btn-primary">
     <i class="fas fa-search"></i>
@@ -50,7 +50,7 @@ if (!isset($_COOKIE["username"]))
     </form>
 
     <div class="table-responsive">
-    <table class="table">
+    <table class="table" id = "myTable">
     <thead>
     <tr>
     <th class="text-center"><strong>ID на заявка</strong></th>
@@ -93,9 +93,9 @@ $tpl = new Template($path);
        } 
        
        if( isset($_GET['search_view']) && $_GET['search_view'] != "" ){
-        $stmt = $con->prepare("SELECT * FROM users 
-        Where
-        username LIKE	?");
+        $stmt = $con->prepare("SELECT * FROM request_books 
+        Where id
+         LIKE	?");
         $search = $_GET['search_view'];
         $stmt->bind_param("s", $search);
         $stmt->execute();
@@ -125,3 +125,23 @@ $tpl = new Template($path);
 ?>
 </body>
 </html>   
+
+<script>
+function searchView() {
+  var input, filter, table, tr, td, cell, i, j;
+  filter = document.getElementById("search_view").value.toLowerCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 1; i < tr.length; i++) {
+    tr[i].style.display = "none";
+    const tdArray = tr[i].getElementsByTagName("td");
+    for (var j = 0; j < tdArray.length; j++) {
+      const cellValue = tdArray[j];
+      if (cellValue && cellValue.innerHTML.toLowerCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+        break;
+      }
+    }
+  }
+}
+</script>
